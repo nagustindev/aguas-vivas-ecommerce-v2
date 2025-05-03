@@ -37,7 +37,7 @@ function Products() {
         return (
           <Card key={producto.id} producto={producto}>
             <button
-              className="mt-auto px-4 py-2 text-white rounded w-full"
+              className="mt-auto px-4 py-2 text-white rounded w-full cursor-pointer"
               style={{ backgroundColor: isInCart ? 'red' : '#09f' }}
               onClick={() => {
                 isInCart ? removeFromCart(producto) : addToCart(producto);

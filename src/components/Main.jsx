@@ -1,11 +1,12 @@
-import React from 'react';  
-
 function Main() {  
     return (  
-        <main style={{ padding: "20px" }}>  
-            <h2>Contenido Principal</h2>  
-            <p>Este es un ejemplo de contenido dentro del área principal.</p>  
+        <main className="border-t p-4 text-[#000] font-[Archivo] text-6xl">  
+            <p>
+                <strong>Aguas Vivas</strong> es el lugar <em>indicado</em> para equiparte en <em>deportes acuáticos</em>, donde la adrenalina y la calma del agua se encuentran. Encontrá todo lo necesario para <strong>Surf, Sup, Wind y Kite</strong>!<br /><br />
+                ¡Vení y preparate para la aventura en el agua!
+            </p>
         </main>  
     );  
-}  
-export default Main;  
+}
+
+export default Main
