@@ -1,16 +1,16 @@
-import React from 'react'; 
 import Form from './Form';
 import { JellyfishIcon } from './Icons';
+import { Link } from "react-router-dom";
  
 function Footer() {  
     return (  
         <footer className="font-[Archivo] text-[#333]"> 
             <div className="p-3">
                 <ul className="flex justify-around font-medium">
-                    <li><a href="index.html">Acerca de Nosotros</a></li>
+                    <li><Link to="/about">Acerca de Nosotros</Link>s</li>
                     <li><a href="index.html">Ubicación</a></li>
                     <li><a href="index.html">Instagram</a></li>
-                    <li><a href="index.html">Contacto</a></li>
+                    <li><Link to="/contacto">Contacto</Link></li>
                     <li><a href="index.html">FAQ</a></li>
                 </ul>
                 <div className="flex justify-between w-full p-10 ">

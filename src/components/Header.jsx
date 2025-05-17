@@ -1,4 +1,3 @@
-import React from 'react';  
 function Header() {  
     return (  
         <header className='m-[10px] h-[calc(100vh-20px)] w-[calc(100%-20px)] bg-no-repeat bg-center bg-contain bg-[url(/images/header.webp)] flex items-center justify-center'>
