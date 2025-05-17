@@ -30,7 +30,7 @@ function Products() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  border">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 divide-x-1 ">
       {productos.map((producto) => {
         const isInCart = checkProductInCart(producto);
 
