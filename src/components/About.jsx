@@ -3,7 +3,7 @@ function About() {
         <section className="text-[#333] font-[Archivo]">  
             <div className="border-b  font-bold text-4xl p-4">Acerca de Nosotros</div>
              <div className="flex justify-center items-center border-b">
-                <img src="public\images\about.jpg" alt="foto about" className="p-4 w-[100vh] rounded-4xl object-cover"/>
+                <img src="/images/about.jpg" alt="foto about" className="p-4 w-[100vh] rounded-4xl object-cover"/>
             </div>
             <main className="grid grid-cols-2 border-b">
                 <div className="border-b border-r p-4">
@@ -20,7 +20,7 @@ function About() {
                      <p>"Ya sea que estés empezando o vivas conectado al viento y las olas, en Aguas Vivas vas a encontrar piezas elegidas con intención: por cómo se sienten, cómo rinden y lo que transmiten."</p>
                 </div>
                 <div className="flex border-r items-center justify-center p-2">
-                      <img className="rounded-2xl size-5/6 object-cover" src="public\images\about2.jpg" alt="foto tablas" />
+                      <img className="rounded-2xl size-5/6 object-cover" src="/images/about2.jpg" alt="foto tablas" />
                 </div>
             </main>
            

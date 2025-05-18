@@ -1,10 +1,10 @@
-function Contacto() {  
+function Contact() {  
     return (
         <section className="font-[Archivo] text-[#333]">
             <div className="border-b  font-bold text-4xl p-4">Contacto</div>
             <main className="grid grid-cols-2 border-b">
                 <div className="flex border-r border-b items-center justify-center p-4">
-                    <img className="rounded-2xl" src="public\images\contact.jpeg" alt="foto contacto" />
+                    <img className="rounded-2xl" src="/images/contact.jpeg" alt="foto contacto" />
                 </div>
                  <div className="border-b p-7">
                     <h2 className="font-bold text-4xl mb-4">¡Ponete en contacto!</h2>
@@ -36,4 +36,4 @@ function Contacto() {
     );  
 }
 
-export default Contacto
+export default Contact

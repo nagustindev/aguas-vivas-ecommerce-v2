@@ -9,7 +9,7 @@ function Footer() {
                 <ul className="flex justify-around font-medium">
                     <li><Link to="/about">Acerca de Nosotros</Link></li>
                     <li><a href="index.html">Instagram</a></li>
-                    <li><Link to="/contacto">Contacto</Link></li>
+                    <li><Link to="/contact">Contacto</Link></li>
                     <li><a href="index.html">FAQ</a></li>
                 </ul>
                 <div className="flex justify-between w-full p-10 ">
