@@ -7,8 +7,7 @@ function Footer() {
         <footer className="font-[Archivo] text-[#333]"> 
             <div className="p-3">
                 <ul className="flex justify-around font-medium">
-                    <li><Link to="/about">Acerca de Nosotros</Link>s</li>
-                    <li><a href="index.html">Ubicación</a></li>
+                    <li><Link to="/about">Acerca de Nosotros</Link></li>
                     <li><a href="index.html">Instagram</a></li>
                     <li><Link to="/contacto">Contacto</Link></li>
                     <li><a href="index.html">FAQ</a></li>

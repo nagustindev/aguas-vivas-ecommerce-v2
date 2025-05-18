@@ -1,8 +1,8 @@
 function Contacto() {  
     return (
-        <section className="font-[Archivo]">
-            <div className="border-b  font-bold text-[#333] text-4xl p-4">Contacto</div>
-            <main className="grid grid-cols-2 border-b text-[#333]">
+        <section className="font-[Archivo] text-[#333]">
+            <div className="border-b  font-bold text-4xl p-4">Contacto</div>
+            <main className="grid grid-cols-2 border-b">
                 <div className="flex border-r border-b items-center justify-center p-4">
                     <img className="rounded-2xl" src="public\images\contact.jpeg" alt="foto contacto" />
                 </div>

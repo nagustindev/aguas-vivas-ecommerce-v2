@@ -21,8 +21,6 @@ export default function Form() {
             <input type="checkbox" className="w-5 h-5 mt-3" required/>
             <label htmlFor="input"> Al registrarte, aceptas recibir correos electrónicos de marketing. Consulta nuestra Política de privacidad y nuestros Términos del Servicio para obtener más información. </label>
           </div>
-          
-          
       </form>
   );
 }
