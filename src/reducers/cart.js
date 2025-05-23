@@ -29,7 +29,7 @@ const UPDATE_STATE_BY_ACTION = {
     const newState = [
       ...state,
       {
-        ...action.payload, 
+        ...action.payload,
         quantity: 1
       }
     ]
@@ -37,12 +37,31 @@ const UPDATE_STATE_BY_ACTION = {
     updateLocalStorage(newState)
     return newState
   },
+
   [CART_ACTION_TYPES.REMOVE_FROM_CART]: (state, action) => {
-    const { id } = action.payload
-    const newState = state.filter(item => item.id !== id)
-    updateLocalStorage(newState)
-    return newState
+  const { id } = action.payload;
+  const productInCartIndex = state.findIndex(item => item.id === id);
+
+  if (productInCartIndex === -1) return state;
+
+  const product = state[productInCartIndex];
+
+  let newState;
+
+  if (product.quantity > 1) {
+    newState = [
+      ...state.slice(0, productInCartIndex),
+      { ...product, quantity: product.quantity - 1 },
+      ...state.slice(productInCartIndex + 1)
+    ];
+  } else {
+    newState = state.filter(item => item.id !== id);
+  }
+
+  updateLocalStorage(newState);
+  return newState;
   },
+
   [CART_ACTION_TYPES.CLEAR_CART]: () => {
     updateLocalStorage([])
     return []
