@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
  
 function Footer() {  
     return (  
-        <footer className="font-[Archivo] text-[#333]"> 
+        <footer className="font-[Archivo] text-[#333] border-t"> 
             <div className="p-3">
                 <ul className="flex justify-around font-medium">
                     <li><Link to="/about">Acerca de Nosotros</Link></li>

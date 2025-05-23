@@ -11,6 +11,7 @@ import Footer from './components/Footer.jsx';
 import Admin from './components/Admin.jsx';
 import { useState } from 'react';
 import Login from './components/Login.jsx';
+import { Toaster } from 'sonner';
 
 function App() {
   const [usuarioLogeado, setUsuarioLogeado] = useState(false)
@@ -27,9 +28,9 @@ function App() {
   return (
     <CartProvider>
       <Router>
-        <div>
+        <div className='grid min-h-dvh grid-rows-[auto_auto_1fr_auto]'>
           <HeaderBanner />
-          <Nav />
+          <Nav usuarioLogeado={usuarioLogeado} />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login user={usuarioLogeado} admin={adminLogeado} setLogeadoAdmin={manejarAdmin} setLogeadoUser={manejarUser}/>}/>
@@ -41,6 +42,16 @@ function App() {
           </Routes>
           <Footer />
         </div>
+        <Toaster
+          toastOptions={{
+            unstyled: true,
+            classNames: {
+              toast: 'bg-primary border rounded-xl flex p-2',
+              title: 'text-m font-normal text-black',
+            },
+          }}
+          position="bottom-right"
+        />
       </Router>
     </CartProvider>
   );

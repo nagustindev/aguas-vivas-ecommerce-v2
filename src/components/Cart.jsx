@@ -11,7 +11,7 @@ function CartItem({ image, price, name, quantity, addToCart }) {
       <footer className="flex gap-[8px] justify-center items-center mt-2">
         <small>Qty: {quantity}</small>
         <button
-          className="border rounded-2xl border-black bg-[#89c3d2] px-3 py-1 text-sm font-bold"
+          className="border rounded-2xl border-black bg-primary px-3 py-1 text-sm font-bold"
           onClick={addToCart}
         >
           +
@@ -39,7 +39,7 @@ function Cart() {
         {cart.length > 0 && (
           <button
             onClick={clearCart}
-            className="bg-[#89c3d2] border rounded-xl text-sm border-black text-white font-bold cursor-pointer p-[8px] mt-5 w-full"
+            className="bg-primary border rounded-xl text-sm border-black text-[#333] hover:bg-primary-hover cursor-pointer p-2 mt-5 w-full"
           >
             Vaciar carrito
           </button>

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useCart } from '../hooks/useCart.js';
-import { AddToCartIcon, RemoveFromCartIcon } from './Icons.jsx';
+import { toast } from 'sonner'
 
 function ProductsDetail() {
   const { id } = useParams();
@@ -38,15 +38,21 @@ function ProductsDetail() {
       <img className="w-64 h-auto mb-4" src={producto.image} alt={producto.name} />
       <p className="mb-4">{producto.description}</p>
       <p className="text-xl font-semibold mb-4">${producto.price}</p>
-
       <button
-        className="px-6 py-2 text-white rounded w-full transition-colors duration-200"
-        style={{ backgroundColor: isInCart ? 'red' : '#09f' }}
         onClick={() => {
-          isInCart ? removeFromCart(producto) : addToCart(producto);
+          if (isInCart) {
+            removeFromCart(producto);
+            toast.success('Producto eliminado del carrito');
+          } else {
+            addToCart(producto);
+            toast.success('Producto agregado al carrito');
+          }
         }}
+        className={`px-6 py-2 text-[#333] rounded-xl w-fit transition-colors duration-200 border ${
+          isInCart ? 'bg-red-500 hover:bg-red-600' : 'bg-primary hover:bg-primary-hover'
+        }`}
       >
-        {isInCart ? <RemoveFromCartIcon /> : <AddToCartIcon />}
+        {isInCart ? 'Eliminar del carrito' : 'Agregar al carrito'}
       </button>
     </div>
   );

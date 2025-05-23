@@ -1,11 +1,11 @@
 function About() {  
     return (  
         <section className="text-[#333] font-[Archivo]">  
-            <div className="border-b  font-bold text-4xl p-4">Acerca de Nosotros</div>
+            <div className="font-bold text-4xl p-4">Acerca de Nosotros</div>
              <div className="flex justify-center items-center border-b">
                 <img src="/images/about.jpg" alt="foto about" className="p-4 w-[100vh] rounded-4xl object-cover"/>
             </div>
-            <main className="grid grid-cols-2 border-b">
+            <main className="grid grid-cols-2">
                 <div className="border-b border-r p-4">
                      <strong className="text-2xl">AGUAS VIVAS ES TU ALIADO EN AVENTURAS ACÚATICAS</strong>
                 </div>

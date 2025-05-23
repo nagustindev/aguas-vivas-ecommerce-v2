@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import CartButton from "./CartButton";
 
 
-function Nav() {  
+function Nav({ usuarioLogeado }) {  
     return (  
         <nav className='text-[#333] border border-t-transparent rounded-b-lg'>  
             <ul className='flex justify-around m-0 items-center font-bold'>  
@@ -10,9 +10,9 @@ function Nav() {
                 <li><Link to="/products">Productos</Link></li>
                 <li><Link to="/about">Acerca de Nosotros</Link></li>
                 <li><Link to="/contact">Contacto</Link></li>
-                 <li><Link to="/admin">Admin</Link></li>
-                 <li><Link to="/login">Login</Link></li>
-                <li className="relative"><CartButton /></li>  
+                <li><Link to="/admin">Admin</Link></li>
+                <li><Link to="/login">Login</Link></li>
+                <li className="relative"><CartButton usuarioLogeado={usuarioLogeado} /></li> 
             </ul>  
         </nav>  
     );  

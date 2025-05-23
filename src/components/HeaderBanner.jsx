@@ -27,7 +27,7 @@ export default function HeaderBanner() {
     <Marquee
       speed={100}
       gradient={false}
-      className="bg-[#89c3d2] py-1 text-[#333] text-sm"
+      className="bg-primary py-1 text-[#333] text-sm"
     >
       {/* Repite el grupo varias veces */}
       {[...Array(9)].flatMap((_, i) =>
