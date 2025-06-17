@@ -2,14 +2,20 @@ import { useId } from "react";
 import { CartIcon } from "./Icons.jsx";
 import CartContent from "./Cart.jsx";
 import { toast } from "sonner";
+import { useAuthContext } from "../context/AuthContext.jsx";
+import { Navigate } from "react-router-dom";
 
-function CartButton({ usuarioLogeado }) {
+function CartButton() {
+  const {user} = useAuthContext();
   const cartCheckboxId = useId();
 
   const handleCartToggle = () => {
-    if (!usuarioLogeado) {
+    if (!user) {
       toast.error('Debés iniciar sesión como usuario para ver el carrito.');
-      return;
+      
+      return (
+        <Navigate to="/login" replace/>
+      )
     }
 
     const checkbox = document.getElementById(cartCheckboxId);

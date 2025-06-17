@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useCart } from '../hooks/useCart.js';
-import { toast } from 'sonner'
+import { toast } from 'sonner';
 
 function ProductsDetail() {
   const { id } = useParams();
