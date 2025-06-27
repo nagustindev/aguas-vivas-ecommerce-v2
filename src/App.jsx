@@ -5,40 +5,49 @@ import ProductsDetail from './components/ProductsDetail.jsx';
 import Home from './layouts/Home.jsx';
 import About from './components/About.jsx';
 import Contact from './components/Contact.jsx';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer.jsx';
-import Admin from './components/Admin.jsx';
 import Login from './components/Login.jsx';
+import ProductsForm from './components/admin/ProductsForm.jsx';
+import EditProductsForm from './components/admin/EditProductsForm.jsx';
 import { Toaster } from 'sonner';
+import { useEffect } from 'react';
+import { useAuthContext } from './context/AuthContext';
 
 function App() {
+  const {verificacionLog} = useAuthContext();
+
+  useEffect(() => {
+    verificacionLog()
+  }, [])
   return (
-  <Router>
-    <div className='grid min-h-dvh grid-rows-[auto_auto_1fr_auto]'>
-      <HeaderBanner />
-      <Nav/>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />}/>
-        <Route path='/products' element={<Products />}/>
-        <Route path="/products/:id" element={<ProductsDetail />} />
-        <Route path='/about' element={<About />}/>
-        <Route path='/contact' element={<Contact />}/>
-        <Route path='/admin' element={<Admin/>} />
-      </Routes>
-      <Footer />
-    </div>
-    <Toaster
-      toastOptions={{
-        unstyled: true,
-        classNames: {
-          toast: 'bg-primary border rounded-xl flex p-2',
-          title: 'text-m font-normal text-black',
-        },
-      }}
-      position="bottom-right"
-    />
-  </Router>
+    <>
+      <div className='grid min-h-dvh grid-rows-[auto_auto_1fr_auto]'>
+        <HeaderBanner />
+        <Nav/>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />}/>
+          <Route path='/products' element={<Products />}/>
+          <Route path="/products/:id" element={<ProductsDetail />} />
+          <Route path='/about' element={<About />}/>
+          <Route path='/contact' element={<Contact />}/>
+          <Route path='/agregarProductos' element={<ProductsForm/>} />
+          <Route path="/editarProducto/:id" element={<EditProductsForm/>}/>
+        </Routes>
+        <Footer />
+      </div>
+      <Toaster
+        toastOptions={{
+          unstyled: true,
+          classNames: {
+            toast: 'bg-primary border rounded-xl flex p-2',
+            title: 'text-m font-normal text-black',
+          },
+        }}
+        position="bottom-right"
+      />
+    </>
   );
 }
 

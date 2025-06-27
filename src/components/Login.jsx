@@ -1,94 +1,112 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
-import { crearUsuario, iniciarSesionUsuario } from '../auth/firebase';
-import { toast } from "sonner";
-function Login() {
+import { crearUsuario, loginEmailPass } from '../auth/firebase';
+import { toast } from 'sonner';
+
+function Login2() {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
-  const { login, user, logout } = useAuthContext();
+  const [show, setShow] = useState(true)
+  const { login, user, logout, admin } = useAuthContext();
 
-  function registrarUsuario(e) {
+  function registrarUsuario (e) {
     e.preventDefault();
     crearUsuario(usuario, password).then((user) => {
-        login(usuario)
-        toast.success('Usuario Registrado');
+      login(usuario)
+      toast.success('Usuario Registrado');
     }).catch((error) => {
-        alert("Error")
+      if(error.code == "auth/invalid-credential"){
+        toast.error('Credenciales incorrectas');
+      }
+      if(error.code == "auth/weak-password"){
+        toast.error('Contraseña débil');
+      }
+      if(error.code == "auth/email-already-in-use"){
+        toast.error('Usuario ya registrado');
+      }
     })
-   
-   
   }
 
-   function iniciarUsuario(e) {
-    e.preventDefault();
-    iniciarSesionUsuario(usuario, password).then((user) => {
-        login(usuario)
-        toast.success('Sesión Iniciada');
-    }).catch((error)=> {
-        alert("Error")
-    }) 
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit2 = (e) => {
     logout()
-    toast.success('Sesión Cerrada');
   }
 
-  if (user){
-    return (
-        <form onSubmit={handleSubmit}>
-        <button type="submit">Cerrar Sesión</button>
+  function iniciarSesionEmailPass (e) {
+    e.preventDefault();
+    loginEmailPass(usuario, password).then((user) => {
+      login(usuario)
+      toast.success('Logeo Exitoso');
+    }).catch((error) => {
+      if(error.code == "auth/invalid-credential"){
+       toast.error('Credenciales incorrectas');
+      }
+    })
+  }
+
+  function handleShow (e) {
+    e.preventDefault();
+    setShow(!show)
+  }
+
+  if(user || admin){
+    return(
+        <form onSubmit={handleSubmit2}>
+        <button type="submit">Cerrar sesión</button>
         </form>
     )
-  }
-
-  return (
-    <div className='flex justify-around p-6'>
-        <form className='' onSubmit={iniciarUsuario}>
+  }if(!user && show){
+    return(
+      <div>
+        <form onSubmit={iniciarSesionEmailPass}>
+          <h2>Iniciar sesión con Email y pass</h2>
           <div>
-              <label>Email:</label>
-              <input
-              className='border rounded-2xl mb-2 ml-2'
+            <label>Email</label>
+            <input
               type="text"
               value={usuario}
               onChange={(e) => setUsuario(e.target.value)}
-              />
+            />
           </div>
           <div>
-              <label>Contraseña:</label>
-              <input
-              className='border rounded-2xl mb-2 ml-2'
+            <label>Contraseña:</label>
+            <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              />
+            />
           </div>
-          <button type="submit" className='border rounded-2xl cursor-pointer bg-primary hover:bg-primary-hover p-0.5 font-medium transition'>Iniciar sesión</button>
+          <button type="submit">Iniciar sesión</button>
         </form>
-
-        <form onSubmit={registrarUsuario}>
+        <button style={{marginTop:"2px"}}  onClick={handleShow}>Registrate</button>
+      </div>
+    )
+  }if(!user && !show){
+    return(
+    <div>
+      <form onSubmit={registrarUsuario}>
+        <h2>Registrarse</h2>
         <div>
-            <label>Email:</label>
-            <input
-            className='border rounded-2xl mb-2 ml-2'
+          <label>Email:</label>
+          <input
             type="text"
             value={usuario}
             onChange={(e) => setUsuario(e.target.value)}
-            />
+          />
         </div>
         <div>
-            <label>Contraseña:</label>
-            <input
-            className='border rounded-2xl mb-2 ml-2'
+          <label>Contraseña:</label>
+          <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            />
+          />
         </div>
-        <button type="submit" className='border rounded-2xl cursor-pointer bg-primary hover:bg-primary-hover p-0.5 font-medium transition'>Registrarse</button>
-        </form>
+        <button type="submit">Registrase</button>
+      </form>
+      <button style={{marginTop:"2px"}} onClick={handleShow}>Iniciar Sesión</button>
     </div>
-    
-  );
+    )
+  }
 }
-export default Login;
+export default Login2;
