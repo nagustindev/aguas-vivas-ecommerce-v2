@@ -3,47 +3,51 @@ import { CartIcon } from "./Icons.jsx";
 import CartContent from "./Cart.jsx";
 import { toast } from "sonner";
 import { useAuthContext } from "../context/AuthContext.jsx";
-import { Navigate } from "react-router-dom";
+import { useState } from "react";
 
 function CartButton() {
-  const {user} = useAuthContext();
-  const cartCheckboxId = useId();
+  const { user } = useAuthContext();
+  const [abierto, setAbierto] = useState(false);
 
   const handleCartToggle = () => {
     if (!user) {
       toast.error('Debés iniciar sesión como usuario para ver el carrito.');
-      
-      return (
-        <Navigate to="/login" replace/>
-      )
+      return;
     }
-
-    const checkbox = document.getElementById(cartCheckboxId);
-    if (checkbox) checkbox.checked = !checkbox.checked;
+    setAbierto(true);
   };
+
+  const cerrarCarrito = () => setAbierto(false);
 
   return (
     <>
-      <input id={cartCheckboxId} type="checkbox" hidden className="peer" />
-
       <button
         onClick={handleCartToggle}
-        className="hover:bg-primary border rounded-4xl cursor-pointer flex h-[32px] justify-center p-[4px] transition duration-150 w-[32px] z-50"
+        className="hover:bg-primary border rounded-full flex items-center justify-center w-8 h-8 relative z-10"
         aria-label="Abrir carrito"
       >
         <CartIcon />
       </button>
 
-      <aside className="hidden peer-checked:block h-[800px] bg-secondary p-[32px] border rounded-2xl border-black fixed right-0 top-0 w-[300px] z-[9999] overflow-y-auto">
-        <label
-          htmlFor={cartCheckboxId}
-          className="absolute top-2 right-4 cursor-pointer border border-black rounded-full w-6 h-6 flex items-center justify-center"
-        >
-          ×
-        </label>
+      {abierto && (
+        <div className="fixed inset-0 z-[9999] flex justify-end p-2">
+          <div
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={cerrarCarrito}
+          />
 
-        <CartContent />
-      </aside>
+          <aside className="relative z-10 w-[350px] max-w-full h-full bg-secondary p-6 shadow-lg overflow-y-auto rounded-2xl border font-[Archivo]">
+            <button
+              onClick={cerrarCarrito}
+              className="absolute top-4 right-4 font-medium border border-[#333] rounded-full w-8 h-8 flex items-center justify-center"
+              aria-label="Cerrar carrito"
+            >
+              X
+            </button>
+            <CartContent />
+          </aside>
+        </div>
+      )}
     </>
   );
 }

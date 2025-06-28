@@ -25,7 +25,6 @@ export function AuthProvider({ children }) {
     const userToken = localStorage.getItem("authToken")
     if(userToken && userToken == "fake-token-admin@gmail.com"){
       setAdmin(true)
-      return
     }if(userToken){
       setUser(userToken)
     }

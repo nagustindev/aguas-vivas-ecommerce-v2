@@ -15,26 +15,28 @@ import { useEffect } from 'react';
 import { useAuthContext } from './context/AuthContext';
 
 function App() {
-  const {verificacionLog} = useAuthContext();
+  const { verificacionLog } = useAuthContext();
 
   useEffect(() => {
     verificacionLog()
   }, [])
   return (
     <>
-      <div className='grid min-h-dvh grid-rows-[auto_auto_1fr_auto]'>
+      <div className='flex flex-col min-h-dvh'>
         <HeaderBanner />
-        <Nav/>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />}/>
-          <Route path='/products' element={<Products />}/>
-          <Route path="/products/:id" element={<ProductsDetail />} />
-          <Route path='/about' element={<About />}/>
-          <Route path='/contact' element={<Contact />}/>
-          <Route path='/agregarProductos' element={<ProductsForm/>} />
-          <Route path="/editarProducto/:id" element={<EditProductsForm/>}/>
-        </Routes>
+        <Nav />
+        <main className="flex-1">
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/products' element={<Products />} />
+            <Route path="/products/:id" element={<ProductsDetail />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/agregarProductos' element={<ProductsForm />} />
+            <Route path="/editarProducto/:id" element={<EditProductsForm />} />
+          </Routes>
+        </main>
         <Footer />
       </div>
       <Toaster

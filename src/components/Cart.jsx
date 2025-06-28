@@ -6,7 +6,7 @@ function CartItem({ image, price, name, quantity, addToCart, removeFromCart }) {
 
   return (
     <li className="border-b border-black pb-[16px] mb-[16px]">
-      <img className="aspect-16/9 w-full mb-2 rounded" src={image} alt={name} />
+      <img className="aspect-square w-full mb-2 rounded" src={image} alt={name} />
       <div className="text-sm font-semibold">
         <strong>{name}</strong> - ${price}
       </div>

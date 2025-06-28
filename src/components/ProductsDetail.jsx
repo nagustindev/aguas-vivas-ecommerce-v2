@@ -55,9 +55,9 @@ function ProductsDetail() {
       {admin ? (
         <>
           <Link to={`/editarProducto/${id}`}>
-            <button>Editar Producto</button>
+            <button className="border rounded-2xl border-black bg-primary px-3 py-1 text-sm font-bold m-2">Editar Producto</button>
           </Link>
-          <button onClick={dispararEliminar}>Eliminar Producto</button>
+          <button onClick={dispararEliminar} className="border rounded-2xl border-black bg-red-500 hover:bg-red-600 px-3 py-1 text-sm font-bold" >Eliminar Producto</button>
         </>
       ) : (
         <button
