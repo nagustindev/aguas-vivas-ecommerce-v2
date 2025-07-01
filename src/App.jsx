@@ -5,7 +5,7 @@ import ProductsDetail from './components/ProductsDetail.jsx';
 import Home from './layouts/Home.jsx';
 import About from './components/About.jsx';
 import Contact from './components/Contact.jsx';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Footer from './components/Footer.jsx';
 import Login from './components/Login.jsx';
 import ProductsForm from './components/admin/ProductsForm.jsx';
@@ -14,17 +14,21 @@ import { Toaster } from 'sonner';
 import { useEffect } from 'react';
 import { useAuthContext } from './context/AuthContext';
 
+
 function App() {
   const { verificacionLog } = useAuthContext();
+  const location = useLocation();
 
   useEffect(() => {
     verificacionLog()
   }, [])
+
+    const esLogin = location.pathname === "/login";
   return (
     <>
       <div className='flex flex-col min-h-dvh'>
-        <HeaderBanner />
-        <Nav />
+        {!esLogin && <HeaderBanner />}
+        {!esLogin && <Nav />}
         <main className="flex-1">
           <Routes>
             <Route path='/' element={<Home />} />
@@ -37,7 +41,7 @@ function App() {
             <Route path="/editarProducto/:id" element={<EditProductsForm />} />
           </Routes>
         </main>
-        <Footer />
+         {!esLogin && <Footer />}
       </div>
       <Toaster
         toastOptions={{
