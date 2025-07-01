@@ -1,5 +1,4 @@
-import { useId } from "react";
-import { CartIcon } from "./Icons.jsx";
+import { HiOutlineShoppingCart } from "react-icons/hi2";
 import CartContent from "./Cart.jsx";
 import { toast } from "sonner";
 import { useAuthContext } from "../context/AuthContext.jsx";
@@ -23,10 +22,10 @@ function CartButton() {
     <>
       <button
         onClick={handleCartToggle}
-        className="hover:bg-primary duration-150 border rounded-full flex items-center justify-center w-8 h-8 relative z-10"
+        className="hover:bg-primary text-2xl duration-150 border rounded-full flex items-center justify-center w-8 h-8 relative z-10"
         aria-label="Abrir carrito"
       >
-        <CartIcon />
+        <HiOutlineShoppingCart />
       </button>
 
       {abierto && (

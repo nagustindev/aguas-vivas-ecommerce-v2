@@ -1,26 +1,48 @@
 import { useEffect, useState } from "react";
 import Card from './Card';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useProductosContext } from '../context/ProductosContext.jsx';
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 function Products() {
   const productosPorPagina = 8;
   const [paginaActual, setPaginaActual] = useState(1);
-  const { productos, obtenerProductos } = useProductosContext();
+  const { productos, obtenerProductos, filtrarProductos } = useProductosContext();
   const indiceUltimoProducto = paginaActual * productosPorPagina;
   const indicePrimerProducto = indiceUltimoProducto - productosPorPagina;
   const productosActuales = productos.slice(indicePrimerProducto, indiceUltimoProducto);
+  const query = useQuery();
+  const searchTerm = query.get("search") || "";
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    obtenerProductos().then((productos) => {
-      setCargando(false);
-    }).catch((error) => {
-      setError('Hubo un problema al cargar los productos.');
-      setCargando(false);
-    })
-  }, []);
+    setCargando(true);
+    obtenerProductos()
+      .then(() => {
+        if (searchTerm) {
+          filtrarProductos(searchTerm);
+          setPaginaActual(1);
+        } else {
+          filtrarProductos('');
+        }
+        setCargando(false);
+      })
+      .catch(() => {
+        setError('Hubo un problema al cargar los productos.');
+        setCargando(false);
+      });
+  }, [searchTerm]);
+
+  useEffect(() => {
+    const totalPaginas = Math.ceil(productos.length / productosPorPagina);
+    if (paginaActual > totalPaginas && totalPaginas > 0) {
+      setPaginaActual(totalPaginas);
+    }
+  }, [productos, paginaActual]);
 
   const totalPaginas = Math.ceil(productos.length / productosPorPagina);
   const cambiarPagina = (numeroPagina) => setPaginaActual(numeroPagina);
@@ -32,7 +54,7 @@ function Products() {
   } else {
     return (
       <div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 divide-x-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {productosActuales.map((producto) => (
             <Link key={producto.id} to={"/products/" + producto.id}>
               <Card producto={producto} />
