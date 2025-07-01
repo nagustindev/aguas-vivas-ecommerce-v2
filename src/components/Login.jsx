@@ -27,6 +27,12 @@ function Login2() {
       if (error.code == "auth/email-already-in-use") {
         toast.error('Usuario ya registrado');
       }
+      if (error.code == "auth/invalid-email") {
+        toast.error('Ingrese un Email válido');
+      }
+      if (error.code == "auth/missing-password") {
+        toast.error('Ingrese una contraseña válida');
+      }
     })
   }
 
@@ -44,6 +50,12 @@ function Login2() {
     }).catch((error) => {
       if (error.code == "auth/invalid-credential") {
         toast.error('Credenciales incorrectas');
+      }
+      if (error.code == "auth/invalid-email") {
+        toast.error('Ingrese un Email válido');
+      }
+      if (error.code == "auth/missing-password") {
+        toast.error('Ingrese una contraseña válida');
       }
     })
   }
@@ -92,7 +104,7 @@ function Login2() {
             type="submit" className='border rounded-2xl border-black bg-primary px-3 py-1 text-sm font-bold m-2'
           >
             Continuar</button>
-           <button className='m-2 underline hover:text-primary duration-150' onClick={handleShow}>No tenes una cuenta? Registrate</button>
+          <button className='m-2 underline hover:text-primary duration-150' onClick={handleShow}>No tenes una cuenta? Registrate</button>
         </form>
       </div>
     )
@@ -120,8 +132,8 @@ function Login2() {
               className='border m-1 rounded-3xl p-0.5 w-full'
             />
           </div>
-          <button 
-          type="submit" className='border rounded-2xl border-black bg-primary px-3 py-1 text-sm font-bold m-2'>Continuar</button>
+          <button
+            type="submit" className='border rounded-2xl border-black bg-primary px-3 py-1 text-sm font-bold m-2'>Continuar</button>
           <button onClick={handleShow} className='m-2 underline hover:text-primary duration-150'>Ya tenes una cuenta? Inicia Sesión</button>
         </form>
       </div>

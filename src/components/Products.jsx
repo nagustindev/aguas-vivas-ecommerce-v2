@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useProductosContext } from '../context/ProductosContext.jsx';
 
 function Products() {
-  const productosPorPagina = 6;
+  const productosPorPagina = 8;
   const [paginaActual, setPaginaActual] = useState(1);
   const { productos, obtenerProductos } = useProductosContext();
   const indiceUltimoProducto = paginaActual * productosPorPagina;
@@ -43,7 +43,7 @@ function Products() {
           {Array.from({ length: totalPaginas }, (_, index) => (
             <button
               key={index + 1}
-              className={`btn mx-1 ${paginaActual === index + 1 ? "btn-primary" : "btn-outline-primary"}`}
+              className={`hover:bg-primary duration-150 border p-2 rounded-full flex items-center justify-center w-8 h-8 mx-1 ${paginaActual === index + 1}`}
               onClick={() => cambiarPagina(index + 1)}
             >
               {index + 1}

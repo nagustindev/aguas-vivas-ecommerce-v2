@@ -7,11 +7,12 @@ import { useProductosContext } from '../../context/ProductosContext';
 function ProductsForm() {
   const { agregarProducto } = useProductosContext();
   const { admin } = useAuthContext();
+  const [error, setError] = useState(null);
 
   const [producto, setProducto] = useState({
     name: '',
     badge: '',
-    type:'',
+    type: '',
     price: '',
     description: '',
     image: ""
@@ -19,19 +20,22 @@ function ProductsForm() {
 
   const validarFormulario = () => {
     if (!producto.name.trim()) {
-      return ("El nombre es obligatorio.")
+      return ("El nombre es obligatorio")
     }
     if (!producto.badge.trim()) {
-      return ("La insignia es obligatoria.")
+      return ("La insignia es obligatoria")
     }
-    if (!producto.price || producto.price <= 0) {
-      return ("El precio debe ser mayor a 0.")
-    }
-    if (!producto.description.trim() || producto.description.length < 10) {
-      return ("La descripción debe tener al menos 10 caracteres.")
+    if (!producto.type.trim()) {
+      return ("El tipo es obligatorio")
     }
     if (!producto.image.trim()) {
       return ("La url de la imagen no debe estar vacía")
+    }
+    if (!producto.price || producto.price <= 0) {
+      return ("El precio debe ser mayor a 0")
+    }
+    if (!producto.description.trim() || producto.description.length < 10) {
+      return ("La descripción debe tener al menos 10 caracteres")
     }
     else {
       return true
@@ -46,14 +50,17 @@ function ProductsForm() {
   const handleSubmit2 = (e) => {
     e.preventDefault();
     const validarForm = validarFormulario()
-    if (validarForm == true) {
+    if (validarForm === true) {
       agregarProducto(producto).then((data) => {
-        setProducto({ name: '', badge: '', tipo:'', price: '', description: '', image: '' });
+        setProducto({ name: '', badge: '', type: '', price: '', description: '', image: '' });
+        setError('');
+        toast.success('Producto agregado correctamente')
       }).catch((error) => {
-        toast.error('Hubo un problema al agregar el producto');
-      })
+        toast.error('Hubo un problema al agregar el producto' + error.message);
+      });
     } else {
-      toast.error('Error en la carga de producto');
+      setError(validarForm);
+      toast.error(validarForm);
     }
   }
 
@@ -70,12 +77,12 @@ function ProductsForm() {
         <div>
           <label>Nombre:</label>
           <input
-            type="text" name="name" value={producto.name} onChange={handleChange} required className='border m-1 rounded-3xl' />
+            type="text" name="name" value={producto.name} onChange={handleChange} className='border m-1 rounded-3xl' />
         </div>
         <div>
           <label>Insignia:</label>
           <input
-            type="text" name="badge" value={producto.badge} onChange={handleChange} required className='border m-1 rounded-3xl' />
+            type="text" name="badge" value={producto.badge} onChange={handleChange} className='border m-1 rounded-3xl' />
         </div>
         <div>
           <label>Tipo</label>
@@ -83,7 +90,6 @@ function ProductsForm() {
             name="type"
             value={producto.type}
             onChange={handleChange}
-            required
             className="border m-1 rounded-3xl"
           >
             <option value="">Seleccioná un tipo</option>
@@ -96,11 +102,11 @@ function ProductsForm() {
         <div>
           <label>Imagen</label>
           <input
-            type="text" name="image" value={producto.image} onChange={handleChange} required className='border m-1 rounded-3xl' />
+            type="text" name="image" value={producto.image} onChange={handleChange} className='border m-1 rounded-3xl' />
         </div>
         <div>
           <label>Precio:</label>
-          <input type="number" name="price" value={producto.price} onChange={handleChange} required
+          <input type="number" name="price" value={producto.price} onChange={handleChange}
             min="0" className='border m-1 rounded-3xl' />
         </div>
         <div className='flex'>
@@ -109,7 +115,6 @@ function ProductsForm() {
             name="description"
             value={producto.description}
             onChange={handleChange}
-            required
             className='border m-1 rounded-sm'
           />
         </div>

@@ -9,7 +9,6 @@ function EditProductsForm() {
   const { obtenerProducto, productoEncontrado, editarProducto } = useProductosContext();
   const { id } = useParams();
   const [producto, setProducto] = useState(productoEncontrado);
-  const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
 
   if (!admin) {
@@ -40,23 +39,22 @@ function EditProductsForm() {
 
   const validarFormulario = () => {
     if (!producto.name.trim()) {
-      return ("El nombre es obligatorio.")
-    }
-    if (!producto.price || producto.price <= 0) {
-      return ("El precio debe ser mayor a 0.")
+      return ("El nombre es obligatorio")
     }
     if (!producto.badge.trim()) {
-      return ("La insignia es obligatoria.")
+      return ("La insignia es obligatoria")
     }
     if (!producto.type.trim()) {
-      return ("El tipo es obligatorio.")
-    }
-    console.log(producto.description.trim())
-    if (!producto.description.trim() || producto.description.length < 10) {
-      return ("La descripción debe tener al menos 10 caracteres.")
+      return ("El tipo es obligatorio")
     }
     if (!producto.image.trim()) {
       return ("La url de la imagen no debe estar vacía")
+    }
+    if (!producto.price || producto.price <= 0) {
+      return ("El precio debe ser mayor a 0")
+    }
+    if (!producto.description.trim() || producto.description.length < 10) {
+      return ("La descripción debe tener al menos 10 caracteres")
     }
     else {
       return true
@@ -68,14 +66,15 @@ function EditProductsForm() {
     const validarForm = validarFormulario()
     if (validarForm == true) {
       editarProducto(producto).then((prod) => {
-        toast.success('Producto editado correctamente!');
+        setError('');
+        toast.success('Producto editado correctamente');
       }).catch((error) => {
-        toast.error('Hubo un problema al actualizar el producto.' + error.message);
+        toast.error('Hubo un problema al actualizar el producto' + error.message);
       })
     } else {
-      toast.error('Error en la carga de producto');
+      setError(validarForm);
+      toast.error(validarForm);
     }
-
   };
 
   return (
@@ -89,31 +88,13 @@ function EditProductsForm() {
             name="name"
             value={producto.name || ''}
             onChange={handleChange}
-            required
-            className='border m-1 rounded-3xl'
-          />
-        </div>
-        <div>
-          <label>Imagen</label>
-          <input
-            type="text" name="image" value={producto.image} onChange={handleChange} required className='border m-1 rounded-3xl' />
-        </div>
-        <div>
-          <label>Precio:</label>
-          <input
-            type="number"
-            name="price"
-            value={producto.price || ''}
-            onChange={handleChange}
-            required
-            min="0"
             className='border m-1 rounded-3xl'
           />
         </div>
         <div>
           <label>Insignia:</label>
           <input
-            type="text" name="badge" value={producto.badge} onChange={handleChange} required className='border m-1 rounded-3xl' />
+            type="text" name="badge" value={producto.badge} onChange={handleChange} className='border m-1 rounded-3xl' />
         </div>
         <div>
           <label>Tipo</label>
@@ -121,7 +102,6 @@ function EditProductsForm() {
             name="type"
             value={producto.type}
             onChange={handleChange}
-            required
             className="border m-1 rounded-3xl"
           >
             <option value="">Seleccioná un tipo</option>
@@ -132,12 +112,27 @@ function EditProductsForm() {
           </select>
         </div>
         <div>
+          <label>Imagen</label>
+          <input
+            type="text" name="image" value={producto.image} onChange={handleChange} className='border m-1 rounded-3xl' />
+        </div>
+        <div>
+          <label>Precio:</label>
+          <input
+            type="number"
+            name="price"
+            value={producto.price || ''}
+            onChange={handleChange}
+            className='border m-1 rounded-3xl'
+          />
+        </div>
+        
+        <div className="flex">
           <label>Descripción:</label>
           <textarea
             name="description"
             value={producto.description || ''}
             onChange={handleChange}
-            required
             className='border m-1 rounded-sm'
           />
         </div>
