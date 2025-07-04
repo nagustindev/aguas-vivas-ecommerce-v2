@@ -1,19 +1,13 @@
-import { useState } from 'react';
-
 export default function Form() {
-  const [nombre, setNombre] = useState('');
-  function manejarEnvio(evento) {
-      evento.preventDefault();
-      alert(`Formulario enviado por: ${nombre}`);
-  }
-  return (
-      <form onSubmit={manejarEnvio} className="font-[Archivo] text-[#333]">
+return (
+      <form action="https://formspree.io/f/mnnqppkv" method="post" id="subscriptionForm" className="font-[Archivo] text-[#333]">
           <input
-              type="text"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
+              type="email"
+              name="subscription-email"
+              id="subscription-email"
               placeholder="EMAIL"
-              className="border rounded-sm"
+              className="border rounded-sm m-1"
+              required
           />
           <button type="submit" className="border rounded-2xl cursor-pointer bg-primary hover:bg-primary-hover p-0.5 font-medium transition">Suscribirse</button>
           <br />

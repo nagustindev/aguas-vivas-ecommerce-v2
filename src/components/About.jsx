@@ -1,8 +1,7 @@
 function About() {
   return (
     <section className="text-[#333] font-[Archivo]">
-      <div className="font-bold text-4xl p-4 border-b">Acerca de Nosotros</div>
-
+      <h2 className="font-bold text-4xl p-4 border-b">Acerca de Nosotros</h2>
       <div className="flex justify-center items-center border-b">
         <img
           src="/images/about.jpg"

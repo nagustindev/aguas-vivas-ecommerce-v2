@@ -58,6 +58,21 @@ function ProductsDetail() {
             <button className="border rounded-2xl border-black bg-primary px-3 py-1 text-sm font-bold m-2">Editar Producto</button>
           </Link>
           <button onClick={dispararEliminar} className="border rounded-2xl border-black bg-red-500 hover:bg-red-600 px-3 py-1 text-sm font-bold" >Eliminar Producto</button>
+          <button
+          onClick={() => {
+            if (isInCart) {
+              removeFromCart(productoEncontrado);
+              toast.success('Producto eliminado del carrito');
+            } else {
+              addToCart(productoEncontrado);
+              toast.success('Producto agregado al carrito');
+            }
+          }}
+          className={`px-6 py-2 text-[#333] rounded-xl w-fit transition-colors duration-200 border m-2 ${isInCart ? 'bg-red-500 hover:bg-red-600' : 'bg-primary hover:bg-primary-hover'
+            }`}
+        >
+          {isInCart ? 'Eliminar del carrito' : 'Agregar al carrito'}
+        </button>
         </>
       ) : (
         <button

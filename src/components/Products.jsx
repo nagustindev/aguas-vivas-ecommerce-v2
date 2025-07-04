@@ -21,21 +21,27 @@ function Products() {
 
   useEffect(() => {
     setCargando(true);
+
     obtenerProductos()
-      .then(() => {
+      .then((productosCargados) => {
         if (searchTerm) {
-          filtrarProductos(searchTerm);
+          const productosFiltrados = productosCargados.filter((producto) =>
+            producto.name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          filtrarProductos(searchTerm); 
           setPaginaActual(1);
         } else {
-          filtrarProductos('');
+          filtrarProductos(""); 
         }
+
         setCargando(false);
       })
       .catch(() => {
-        setError('Hubo un problema al cargar los productos.');
+        setError("Hubo un problema al cargar los productos.");
         setCargando(false);
       });
   }, [searchTerm]);
+
 
   useEffect(() => {
     const totalPaginas = Math.ceil(productos.length / productosPorPagina);

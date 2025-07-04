@@ -2,7 +2,7 @@ import { createContext, useState, useContext } from 'react';
 
 const ProductosContext = createContext();
 export function ProductosProvider({ children }) {
-    const [productos, setProductos] = useState([{ name: "", image: "", id: "" }])
+    const [productos, setProductos] = useState([]);
     const [productosOriginales, setProductosOriginales] = useState([])
     const [productoEncontrado, setProductoEncontrado] = useState([])
 
@@ -123,6 +123,8 @@ export function ProductosProvider({ children }) {
     }
 
     function filtrarProductos(filtro) {
+        if (!productosOriginales || productosOriginales.length === 0) return;
+
         if (!filtro || filtro.trim() === "") {
             setProductos(productosOriginales);
             return;
@@ -131,8 +133,10 @@ export function ProductosProvider({ children }) {
         const productosFiltrados = productosOriginales.filter((producto) =>
             producto.name.toLowerCase().includes(filtro.toLowerCase())
         );
-        setProductos(productosFiltrados)
+
+        setProductos(productosFiltrados);
     }
+
 
     return (
         <ProductosContext.Provider value={{ obtenerProductos, productos, agregarProducto, obtenerProducto, productoEncontrado, editarProducto, eliminarProducto, filtrarProductos }}>

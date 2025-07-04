@@ -104,7 +104,7 @@ function Nav({ usuarioLogeado }) {
         )}
       </nav>
       {mostrarBuscador && (
-        <div className="absolute top-[64px] left-0 w-full h-[calc(100vh-5px)] z-1 bg-gradient-to-b from-primary to-secondary p-8 overflow-y-auto">
+        <div className="absolute top-[64px] left-0 w-full h-dvh z-1 bg-gradient-to-b from-primary to-secondary p-8 overflow-y-auto">
           <form onSubmit={manejarBusqueda} className="flex">
             <input
               type="text"

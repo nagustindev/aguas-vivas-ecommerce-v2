@@ -35,32 +35,36 @@ function Cart() {
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
-    <div>
-        <ul>
-          {cart.map(product => (
-            <CartItem
-              key={product.id}
-              addToCart={() => addToCart(product)}
-              removeFromCart={() => removeFromCart(product)}
-              {...product}
-            />
-          ))}
-        </ul>
+    <div className="flex flex-col h-full">
+      {cart.length === 0 ? (
+        <div className="flex flex-col justify-center items-center h-full text-center">
+          <p className="text-lg font-semibold">Tu carrito está vacío!</p>
+        </div>
+      ) : (
+        <>
+          <ul className="flex-grow overflow-y-auto">
+            {cart.map(product => (
+              <CartItem
+                key={product.id}
+                addToCart={() => addToCart(product)}
+                removeFromCart={() => removeFromCart(product)}
+                {...product}
+              />
+            ))}
+          </ul>
 
-        {cart.length > 0 && (
-          <>
-            <button
-              onClick={clearCart}
-              className="bg-primary border rounded-xl text-sm border-black text-[#333] hover:bg-primary-hover cursor-pointer p-2 mt-5 w-full"
-            >
-              Vaciar carrito
-            </button>
+          <button
+            onClick={clearCart}
+            className="bg-primary border rounded-xl text-sm border-black text-[#333] hover:bg-primary-hover cursor-pointer p-2 mt-5 w-full"
+          >
+            Vaciar carrito
+          </button>
 
-            <div className="text-right font-bold mt-4">
-              Total: ${total.toFixed(2)}
-            </div>
-          </>
-        )}
+          <div className="text-right font-bold mt-4">
+            Total: ${total.toFixed(2)}
+          </div>
+        </>
+      )}
     </div>
   );
 }
